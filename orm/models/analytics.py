@@ -26,6 +26,25 @@ class AnalyticsTasks(Base):
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
 
+    def __init__(self, rider_notes, submitted_on , organiation_name, onfleet_pickup_id, onfleet_dropoff_id, request_type, other_items, size, delivery_date, delivery_window, delivery_distance, rider_id, pickup_contact_id, pickup_address, dropoff_contact_id, dropoff_address):
+    
+    self.rider_notes = rider_notes
+    self.submitted_on = submitted_on
+    self.organiation_name = organiation_name
+    self.onfleet_pickup_id = onfleet_pickup_id
+    self.onfleet_dropoff_id = onfleet_dropoff_id
+    self.request_type = request_type
+    self.other_items = other_items
+    self.size = size
+    self.delivery_date = delivery_date
+    self.delivery_window = delivery_window
+    self.delivery_distance = delivery_distance
+    self.rider_id = rider_notes
+    self.pickup_contact_id = pickup_contact_id
+    self.pickup_address = pickup_address
+    self.dropoff_contact_id = dropoff_contact_id
+    self.dropoff_address = dropoff_address
+    
 
 class AnalyticsRiders(Base):
     __tablename__ = 'analytics_riders'
@@ -52,6 +71,13 @@ class AnalyticsCampaigns(Base):
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
 
+    def __init__(self, name, delivery_date, inserted_at, updated_at):
+        
+        self.name = name
+        self.delivery_date = delivery_date
+        inserted_at = delivery_date
+        updated_at = updated_at
+
 
 class AnalyticsCampaignTasks(Base):
     __tablename__ = 'analytics_campaign_tasks'
@@ -60,6 +86,11 @@ class AnalyticsCampaignTasks(Base):
     task_id = Column(Integer, ForeignKey('analytics_tasks.id'))
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
+
+    def __init__(self, campaign_id, task_id, inserted_at, updated_at):
+        
+        self.campaign_id = campaign_id
+        self.task_id = task_id
     
 
 class AnalyticsCampaignRider(Base):
@@ -72,11 +103,16 @@ class AnalyticsCampaignRider(Base):
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
 
+    def __init_(self, capacity , pickup_window, campaign_id, rider_id):
+        
+        self.capacity = capacity
+        self.pickup_window = pickup_window
+        self.campaign_id = campaign_id
+        self.rider_id = rider_id
 
 class AnalyticsAddresses(Base):
     __tablename__='analytics_addresses'
     id = Column(Integer, primary_key=True)
-    name = Column(String)
     line1 = Column(String)
     line2 = Column(String)
     city = Column(String)
@@ -86,6 +122,16 @@ class AnalyticsAddresses(Base):
     geo = Column(Column(Geography(from_text='ST_GeogFromText'))
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
+
+    def __init__(self, line1, city, province, postal, country, geo, line2=None):
+        
+        self.line1 = line1
+        self.line2 = line2
+        self.city = city
+        self.province = province
+        self.postal = postal
+        self.country = country
+        self.geo = geo
 
 
 class AnalyticsContacts(Base):
@@ -98,6 +144,12 @@ class AnalyticsContacts(Base):
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
 
+    def __init__(self, name, email, phone, address):
+        
+        self.name = name
+        self.email = email
+        self.phone = phone
+        self.address = address
 
 class AnalyticsCampaignSummaries(Base):
     __tablename__='analytics_campaign_summaries'
@@ -110,3 +162,12 @@ class AnalyticsCampaignSummaries(Base):
     campaign_id = Column(Integer, ForeignKey('analytics_campaigns.id'))
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
+
+    def __init__(self, delivery_window, tasks_count, riders_count, distance_covered, failed_count, campaign_id):
+        
+        self.delivery_window = delivery_window
+        self.tasks_count = tasks_count
+        self.riders_count = riders_count
+        self.distance_covered = distance_covered
+        self.failed_count = failed_count
+        self.campaign_id = campaign_id
