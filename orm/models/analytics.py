@@ -3,6 +3,8 @@ from geoalchemy2 import Geography
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy import Column, String, Text, Integer, Date, DateTime, ForeignKey
 
+from datetime import datetime
+
 
 class AnalyticsTasks(Base):
     __tablename__ = 'analytics_tasks'
@@ -28,22 +30,22 @@ class AnalyticsTasks(Base):
 
     def __init__(self, rider_notes, submitted_on , organiation_name, onfleet_pickup_id, onfleet_dropoff_id, request_type, other_items, size, delivery_date, delivery_window, delivery_distance, rider_id, pickup_contact_id, pickup_address, dropoff_contact_id, dropoff_address):
     
-    self.rider_notes = rider_notes
-    self.submitted_on = submitted_on
-    self.organiation_name = organiation_name
-    self.onfleet_pickup_id = onfleet_pickup_id
-    self.onfleet_dropoff_id = onfleet_dropoff_id
-    self.request_type = request_type
-    self.other_items = other_items
-    self.size = size
-    self.delivery_date = delivery_date
-    self.delivery_window = delivery_window
-    self.delivery_distance = delivery_distance
-    self.rider_id = rider_notes
-    self.pickup_contact_id = pickup_contact_id
-    self.pickup_address = pickup_address
-    self.dropoff_contact_id = dropoff_contact_id
-    self.dropoff_address = dropoff_address
+        self.rider_notes = rider_notes
+        self.submitted_on = submitted_on
+        self.organiation_name = organiation_name
+        self.onfleet_pickup_id = onfleet_pickup_id
+        self.onfleet_dropoff_id = onfleet_dropoff_id
+        self.request_type = request_type
+        self.other_items = other_items
+        self.size = size
+        self.delivery_date = delivery_date
+        self.delivery_window = delivery_window
+        self.delivery_distance = delivery_distance
+        self.rider_id = rider_notes
+        self.pickup_contact_id = pickup_contact_id
+        self.pickup_address = pickup_address
+        self.dropoff_contact_id = dropoff_contact_id
+        self.dropoff_address = dropoff_address
     
 
 class AnalyticsRiders(Base):
@@ -68,15 +70,14 @@ class AnalyticsCampaigns(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     delivery_date = Column(Date)
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    def __init__(self, name, delivery_date, inserted_at, updated_at):
+    def __init__(self, id, name, delivery_date):
         
+        self.id = id
         self.name = name
         self.delivery_date = delivery_date
-        inserted_at = delivery_date
-        updated_at = updated_at
 
 
 class AnalyticsCampaignTasks(Base):
@@ -119,7 +120,7 @@ class AnalyticsAddresses(Base):
     province = Column(String)
     postal = Column(String)
     country = Column(String)
-    geo = Column(Column(Geography(from_text='ST_GeogFromText'))
+    geo = Column(Geography(from_text='ST_GeogFromText'))
     inserted_at = Column(DateTime)
     updated_at = Column(DateTime)
 
