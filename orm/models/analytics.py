@@ -25,8 +25,8 @@ class AnalyticsTasks(Base):
     pickup_address = Column(Integer, ForeignKey('analytics_addresses.id'))
     dropoff_contact_id = Column(Integer, ForeignKey('analytics_contacts.id'))
     dropoff_address = Column(Integer, ForeignKey('analytics_addresses.id'))
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self, rider_notes, submitted_on , organiation_name, onfleet_pickup_id, onfleet_dropoff_id, request_type, other_items, size, delivery_date, delivery_window, delivery_distance, rider_id, pickup_contact_id, pickup_address, dropoff_contact_id, dropoff_address):
     
@@ -61,8 +61,8 @@ class AnalyticsRiders(Base):
     mailchimp_status = Column(String)
     contact_id = Column(Integer, ForeignKey('analytics_contact.id'))
     signed_up_on = Column(Date)  # FIXME: missing in schema
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
 
 class AnalyticsCampaigns(Base):
@@ -85,8 +85,8 @@ class AnalyticsCampaignTasks(Base):
     id = Column(Integer, primary_key=True)
     campaign_id = Column(Integer, ForeignKey('analytics_campaigns.id'))
     task_id = Column(Integer, ForeignKey('analytics_tasks.id'))
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self, campaign_id, task_id, inserted_at, updated_at):
         
@@ -101,8 +101,8 @@ class AnalyticsCampaignRider(Base):
     pickup_window = Column(String)
     campaign_id = Column(Integer)
     rider_id = Column(Integer, ForeignKey('analytics_riders.id'))
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init_(self, capacity , pickup_window, campaign_id, rider_id):
         
@@ -121,8 +121,8 @@ class AnalyticsAddresses(Base):
     postal = Column(String)
     country = Column(String)
     geo = Column(Geography(from_text='ST_GeogFromText'))
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self, line1, city, province, postal, country, geo, line2=None):
         
@@ -142,8 +142,8 @@ class AnalyticsContacts(Base):
     email = Column(String)
     phone = Column(String)
     address = Column(Integer, ForeignKey('analytics_addresses.id'))
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self, name, email, phone, address):
         
@@ -161,8 +161,8 @@ class AnalyticsCampaignSummaries(Base):
     distance_covered = Column(Integer)
     failed_count = Column(Integer)
     campaign_id = Column(Integer, ForeignKey('analytics_campaigns.id'))
-    inserted_at = Column(DateTime)
-    updated_at = Column(DateTime)
+    inserted_at = Column(DateTime, default=datetime.now)
+    updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
     def __init__(self, delivery_window, tasks_count, riders_count, distance_covered, failed_count, campaign_id):
         
