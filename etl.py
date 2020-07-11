@@ -1,12 +1,11 @@
+from settings import TBB_DB
 from orm.database import Database
 from orm.models.dispatch import Campaigns
 from orm.models.analytics import AnalyticsCampaigns
-from settings import TBB_DB
 
 from sqlalchemy.sql.expression import func
 
-db = Database(TBB_DB['db_name'], TBB_DB['host'], TBB_DB['user'], TBB_DB['pwd'], TBB_DB['port'])
-
+db = Database(TBB_DB)
 
 # Take campaigns turn them into analytics_campaigns
 

@@ -2,10 +2,10 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
 class Database:
-    def __init__(self, db_name, host, username, password, port):
-        
+    def __init__(self, config_dict):
+
         self.engine = create_engine(
-            f'postgresql://{username}:{password}@{host}:{port}/{db_name}')
+            f'postgresql://{config_dict["user"]}:{config_dict["pwd"]}@{config_dict["host"]}:{config_dict["port"]}/{config_dict["db_name"]}')
         self.Session = sessionmaker(bind=self.engine)
         self.session = self.Session()
     

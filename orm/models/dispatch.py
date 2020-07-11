@@ -1,4 +1,5 @@
 from .base import Base
+from datetime import datetime
 from geoalchemy2 import Geography
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy import Column, String, Text, Integer, DateTime, Date, ForeignKey
