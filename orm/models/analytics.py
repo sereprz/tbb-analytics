@@ -59,10 +59,24 @@ class AnalyticsRiders(Base):
     max_distance = Column(Integer)
     mailchimp_id = Column(String)
     mailchimp_status = Column(String)
-    contact_id = Column(Integer, ForeignKey('analytics_contact.id'))
-    signed_up_on = Column(Date)  # FIXME: missing in schema
+    contact_id = Column(Integer, ForeignKey('analytics_contacts.id'))
+    # signed_up_on = Column(Date)  # FIXME: missing in schema
     inserted_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
+
+    def __init__(self, id, onfleet_id, onfleet_account_status, pronouns, availability, capacity, max_distance, mailchimp_id, mailchimp_status, contact_id):
+        
+        self.id = id
+        self.onfleet_id = onfleet_id
+        self.onfleet_account_status = onfleet_account_status
+        self.pronouns = pronouns
+        self.availability = availability
+        self.capacity = capacity
+        self.max_distance = max_distance
+        self.mailchimp_id = mailchimp_id
+        self.mailchimp_status = mailchimp_status
+        self.contact_id = contact_id
+        # self.signed_up_on = signed_up_on
 
 
 class AnalyticsCampaigns(Base):
@@ -124,7 +138,7 @@ class AnalyticsAddresses(Base):
     inserted_at = Column(DateTime, default=datetime.now)
     updated_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
 
-    def __init__(self, line1, city, province, postal, country, geo, line2=None):
+    def __init__(self, line1, line2, city, province, postal, country, geo):
         
         self.line1 = line1
         self.line2 = line2
